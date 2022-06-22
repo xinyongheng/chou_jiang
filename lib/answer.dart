@@ -15,8 +15,7 @@ class AnswerWidget extends StatefulWidget {
 
 class _AnswerWidgetState extends State<AnswerWidget> {
   QuestionBean? _selectQuestion;
-  String _content =
-      '入党誓词：我志愿加入中国共产党，拥护党的纲领，遵守党的章程，履行党员义务，执行党的决定，严守党的纪律，保守党的秘密，对党忠诚，积极工作，为共产主义奋斗终身，随时准备为党和人民牺牲一切，（  ）。';
+  String _content = '';
   int index = -1;
   String _cmdContent = '开始';
   final _list = <QuestionBean>[];
@@ -62,6 +61,8 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
+                      top: 30.sp,
+                      left: 150.sp,
                       bottom: 20.sp,
                     ),
                     child: Text(
@@ -69,13 +70,14 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.red,
-                        fontSize: 50.sp,
+                        fontSize: 60.sp,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Container(
                     width: 666.w,
-                    height: 444.h,
+                    height: 400.h,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.transparent,
@@ -86,7 +88,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         SizedBox(
-                          height: 333.h,
+                          height: 300.h,
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,7 +101,10 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                                 ),
                               ),
                               Opacity(
-                                opacity: _cmdContent == '开始' ? 1 : 0,
+                                opacity:
+                                    (_cmdContent == '开始' && _content.isNotEmpty)
+                                        ? 1
+                                        : 0,
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,

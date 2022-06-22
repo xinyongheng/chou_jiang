@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(888, 666),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: const MyHomePage(title: '知识竞赛'),
+      child: const AnswerWidget(),
     );
   }
 }
