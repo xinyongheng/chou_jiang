@@ -17,11 +17,11 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   QuestionBean? _selectQuestion;
   String _content =
       '入党誓词：我志愿加入中国共产党，拥护党的纲领，遵守党的章程，履行党员义务，执行党的决定，严守党的纪律，保守党的秘密，对党忠诚，积极工作，为共产主义奋斗终身，随时准备为党和人民牺牲一切，（  ）。';
-  int index = 0;
+  int index = -1;
   String _cmdContent = '开始';
   final _list = <QuestionBean>[];
   final _selectList = <QuestionBean>[];
-  final timeout = const Duration(milliseconds: 500);
+  final timeout = const Duration(milliseconds: 50);
   Timer? _timer;
   String _answer = '***';
   @override
@@ -40,26 +40,45 @@ class _AnswerWidgetState extends State<AnswerWidget> {
     return Scaffold(
       // appBar: Config.loadAppbar('答题'),
       body: Container(
-        color: Colors.red,
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/bg.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
+              color: Colors.transparent,
               alignment: Alignment.center,
-              color: Colors.red,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Text( ''),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 20.sp,
+                    ),
+                    child: Text(
+                      '县信投公司“献礼新时代 喜迎二十大”\n知识竞赛',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 50.sp,
+                      ),
+                    ),
+                  ),
                   Container(
                     width: 666.w,
                     height: 444.h,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.black,
+                        color: Colors.transparent,
                         width: 1.sp,
                       ),
                     ),
@@ -95,11 +114,17 @@ class _AnswerWidgetState extends State<AnswerWidget> {
                                             });
                                           }
                                         },
-                                        child: const Text('答案：')),
+                                        child: const Text(
+                                          '答案：',
+                                          style: TextStyle(color: Colors.red),
+                                        )),
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(right: 8.0),
-                                      child: Text(_answer),
+                                      child: Text(
+                                        _answer,
+                                        style: TextStyle(color: Colors.red),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -132,10 +157,12 @@ class _AnswerWidgetState extends State<AnswerWidget> {
               ),
             ),
             Container(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.topRight,
               width: 666.w,
               child: Text(
-                  "答题数量:${_selectList.length}/${_selectList.length + _list.length}"),
+                "答题数量:${_selectList.length}/${_selectList.length + _list.length}",
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -148,15 +175,15 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   }
 
   void callback(Timer timer) {
+    if (index >= _list.length - 1) {
+      index = -1;
+    }
+    index += 1;
     //更新_content
     QuestionBean bean = _list[index];
     setState(() {
       _content = "${bean.no!}.${bean.question!}";
       _selectQuestion = bean;
-      if (index >= _list.length - 1) {
-        index = -1;
-      }
-      index += 1;
     });
   }
 
